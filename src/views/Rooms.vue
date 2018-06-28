@@ -10,8 +10,8 @@
                 <p class="card-text" v-if="roomOne.player_one">Player 1: {{roomOne.player_one.name}} as a {{roomOne.player_one.role}}</p>
                 <p class="card-text" v-if="roomOne.player_two">Player 2: {{roomOne.player_two.name}} as a {{roomOne.player_two.role}}</p>
                 <p class="card-text" v-if="messagesOne">{{messagesOne}}</p>
-                <a href="#" class="btn btn-warning" v-if="roomOne.player_one && roomOne.player_two">Start Game</a>
-                <a href="#" class="btn btn-warning" v-else>Join Room</a>
+                <button class="btn btn-warning" v-if="roomOne.player_one && roomOne.player_two" @click="startGame('one')">Start Game</button>
+                <button class="btn btn-warning" v-else>Join Room</button>
               </div>
             </div>
             <!-- card -->
@@ -25,8 +25,8 @@
                 <p class="card-text" v-if="roomTwo.player_one">Player 1: {{roomTwo.player_one.name}} as a {{roomTwo.player_one.role}}</p>
                 <p class="card-text" v-if="roomTwo.player_two">Player 2: {{roomTwo.player_two.name}} as a {{roomTwo.player_two.role}}</p>
                 <p class="card-text" v-if="messagesTwo">{{messagesTwo}}</p>
-                <a href="#" class="btn btn-warning" v-if="roomTwo.player_one && roomTwo.player_two">Start Game</a>
-                <a href="#" class="btn btn-warning" v-else>Join Room</a>
+                <button class="btn btn-warning" v-if="roomTwo.player_one && roomTwo.player_two" @click="startGame('two')">Start Game</button>
+                <button class="btn btn-warning" v-else>Join Room</button>
               </div>
             </div>
             <!-- card -->
@@ -37,8 +37,11 @@
               <img class="card-img-top" src="@/images/field.jpg" alt="Card image">
               <div class="card-body">
                 <h4 class="card-title">Room Three</h4>
-                <p class="card-text">Waiting player...</p>
-                <a href="#" class="btn btn-warning">Join Room</a>
+                <p class="card-text" v-if="roomThree.player_one">Player 1: {{roomThree.player_one.name}} as a {{roomThree.player_one.role}}</p>
+                <p class="card-text" v-if="roomThree.player_two">Player 2: {{roomThree.player_two.name}} as a {{roomThree.player_two.role}}</p>
+                <p class="card-text" v-if="messagesThree">{{messagesThree}}</p>
+                <button class="btn btn-warning" v-if="roomThree.player_one && roomThree.player_two" @click="startGame('three')">Start Game</button>
+                <button class="btn btn-warning" v-else>Join Room</button>
               </div>
             </div>
             <!-- card -->
@@ -56,8 +59,15 @@ export default {
       roomTwo: {},
       roomThree: {},
       messagesOne: null,
-      messagesTwo: null
+      messagesTwo: null,
+      messagesThree: null
     };
+  },
+  methods: {
+    startGame(param) {
+      console.log(param);
+      this.$router.push(`/rooms/${param}`);
+    }
   },
   mounted() {
     console.log("test mounted");
@@ -85,6 +95,19 @@ export default {
         this.roomTwo = snapshot.val();
       } else {
         this.messagesTwo = "Waiting player";
+      }
+    });
+    roomThree.on("value", snapshot => {
+      console.log(snapshot.val());
+      if (snapshot.val()) {
+        if (!snapshot.val().player_two) {
+          this.messagesThree = "Waiting another player...";
+        } else {
+          this.messagesThree = null;
+        }
+        this.roomThree = snapshot.val();
+      } else {
+        this.messagesThree = "Waiting player...";
       }
     });
   }
