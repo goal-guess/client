@@ -64,8 +64,12 @@ export default {
   },
 
   async checkWhoWins (players) {
+    let winner
     Object.keys(players).forEach(key => {
-      
+      if (players[key].score >= 3) {
+        winner = players[key].name
+      }
     })
+    return winner
   }
 }
