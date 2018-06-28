@@ -1,8 +1,8 @@
 <template>
   <b-container>
-    <div class="keeper-range">
+    <b-row class="keeper-range">
       <Keeper></Keeper>
-    </div>
+    </b-row>
     <b-row align-v="end">
         <b-col>Score</b-col>
         <b-col>
