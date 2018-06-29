@@ -147,9 +147,11 @@ export default {
   mounted() {
     console.log("masuk mounted");
     //roomOne
+    if (localStorage.getItem('username')){
+       this.currName = localStorage.getItem('username');
+    }
     if (localStorage.getItem('joinRoom') && localStorage.getItem('username')){
       this.joinRoom = true
-      this.currName = localStorage.getItem('username');
     }
     roomOne.on("value", snapshot => {
       console.log('roomOne',snapshot.val());
