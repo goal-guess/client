@@ -30,8 +30,18 @@ export default {
   margin-top: -360px;
   margin-right: -250px;
   width: 100px;
+  position: relative;
+  animation-name: example;
+  animation-duration: 4s;
+  animation-delay: -2s;
 }
-
+@keyframes example {
+    0%   {left:0px; top:0px;}
+    25%  {left:10px; top:100px;}
+    50%  {left:-100px; top:60px;}
+    75%  {left:0px; top:30px;}
+    100% {left:0px; top:0px;}
+}
 .left-goal{
   margin-top: -360px;
   margin-left: -300px;
