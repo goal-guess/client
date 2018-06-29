@@ -1,4 +1,5 @@
 <template>
+<div class="rooms">
 <div class="container">
     <div class="row">
         <div class="col-lg-3 col-sm-6 mx-auto py-3">
@@ -46,7 +47,8 @@
             <!-- card -->
         </div>
     </div>
-</div>  
+</div>
+</div>
 </template>
 <script>
 import { roomOne, roomTwo, roomThree } from "../helpers/firebase";
@@ -230,6 +232,15 @@ export default {
 .card-text {
   font-size: 12px;
 }
+
+.rooms {
+    background-image: url("http://covidia.com/wp-content/uploads/2018/05/Wallpaper-FIFA-World-Cup.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height:100vh
+}
+
 </style>
 
 
