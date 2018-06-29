@@ -11,7 +11,7 @@
         <b-col style="font-size: 0.5rem; color: Dodgerblue;">
           <b-row>
             <b-col></b-col>
-            <b-col><i class="fas fa-caret-square-up fa-10x" v-on:click="directionAct('up')"></i></b-col>
+            <b-col><i class="fas fa-caret-square-up fa-10x" v-on:click="directionAct('center')"></i></b-col>
             <b-col></b-col>
           </b-row>
           <b-row>
