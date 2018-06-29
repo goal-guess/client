@@ -4,7 +4,13 @@
       <Keeper></Keeper>
     </div>
     <b-row class="fixed-bottom">
-        <b-col>Score</b-col>
+        <b-col>
+          <div class="score-board">
+            <h2>Score :</h2> <br />
+            <h5>John(Keeper) : 0</h5> <br />
+            <h5>Doe(Kicker) : 0</h5>
+          </div>
+        </b-col>
         <b-col>
           <Ball></Ball>
         </b-col>
@@ -27,6 +33,8 @@
 // @ is an alias to /src
 import Ball from '@/components/main-components/Ball.vue'
 import Keeper from '@/components/main-components/Keeper.vue'
+import { roomOne, roomTwo, roomThree } from '../helpers/firebase'
+import game from '../helpers/game'
 
 export default {
   name: 'mainPage',
@@ -34,34 +42,7 @@ export default {
     Ball,
     Keeper
   },
-  data () {
-    return {
-      players: {
-        player_one: {
-          name: 'Dian',
-          role: 'keeper',
-          score: 0,
-          direction: null
-        },
-        player_two: {
-          name: 'Roni',
-          role: 'kicker',
-          score: 0,
-          direction: null
-        }
-      }
-    }
-  },
   methods: {
-    directionAct (event) {
-      // console.log(event)
-      for(let key in this.players){
-        if(this.players[key].role == 'keeper') {
-          this.players[key].direction = event
-        }
-      }
-      console.log(this)
-    }
   }
 }
 </script>
@@ -69,5 +50,12 @@ export default {
 <style scoped>
 .keeper-range{
   padding-top: 80px
+}
+.score-board{
+  margin: 1rem;
+  padding: 1rem;
+  background-color: #3B653D;
+  color: #FFFFFF;
+  border-color: 5px solid #D1A665;
 }
 </style>
