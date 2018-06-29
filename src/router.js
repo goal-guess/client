@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Login.vue'
-import About from './views/About.vue'
+import GameOn from './views/GameOn.vue'
+import Rooms from './views/Rooms.vue'
 
 Vue.use(Router)
 
@@ -13,9 +14,14 @@ export default new Router({
       component: Home
     },
     {
-      path: '/about',
-      name: 'about',
-      component: About
+      path: '/rooms',
+      name: 'rooms',
+      component: Rooms
+    },
+    {
+      path: '/rooms/:id',
+      name: 'gameOn',
+      component: GameOn
     }
   ]
 })
