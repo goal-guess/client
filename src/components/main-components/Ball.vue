@@ -14,10 +14,10 @@ export default {
     setClass () {
       console.log("=========",this.direction)
       switch(this.direction) {
-        case 'center': return 'keeper mx-auto d-block'
-        case 'right': return 'keeper float-right'
-        case 'left': return 'keeper float-left'
-        default: return 'keeper mx-auto d-block'
+        case 'center': return 'mx-auto d-block center-goal'
+        case 'right': return 'float-right right-goal'
+        case 'left': return 'float-left left-goal'
+        default: return 'mx-auto d-block'
       }
     }
   }
@@ -25,4 +25,22 @@ export default {
 </script>
 
 <style scoped>
+
+.right-goal{
+  margin-top: -360px;
+  margin-right: -250px;
+  width: 100px;
+}
+
+.left-goal{
+  margin-top: -360px;
+  margin-left: -300px;
+  width: 100px;
+}
+
+.center-goal{
+  margin-top: -360px;
+  width: 100px;
+}
 </style>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
