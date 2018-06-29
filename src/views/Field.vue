@@ -60,6 +60,7 @@ export default {
           this.players[key].direction = event
         }
       }
+      console.log(this)
     }
   }
 }
