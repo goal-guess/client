@@ -1,4 +1,5 @@
 <template>
+<div class="rooms">
 <div class="container">
     <div class="row">
         <div class="col-lg-3 col-sm-6 mx-auto py-3">
@@ -46,7 +47,8 @@
             <!-- card -->
         </div>
     </div>
-</div>  
+</div>
+</div>
 </template>
 <script>
 import { roomOne, roomTwo, roomThree } from "../helpers/firebase";
@@ -80,6 +82,7 @@ export default {
             currRole = arrRole[0]
           }
           //let join and start game
+          localStorage.setItem('player','player_two');
           roomOne.child("player_two").set({
             name: this.currName,
             role: currRole,
@@ -87,7 +90,8 @@ export default {
           })
         } else {
           console.log("both player doesn't exist");
-          let random = Math.floor(Math.random() * 2)
+          let random = Math.floor(Math.random() * 2);
+          localStorage.setItem('player','player_one');
           roomOne.child("player_one").set({
             name: this.currName,
             role: arrRole[random],
@@ -103,6 +107,7 @@ export default {
           }else{
             currRole = arrRole[0]
           }
+          localStorage.setItem('player','player_two');
           roomTwo.child("player_two").set({
             name: this.currName,
             role: currRole,
@@ -111,6 +116,7 @@ export default {
         } else {
           console.log("null");
           let random = Math.floor(Math.random() * 2)
+          localStorage.setItem('player','player_one');
           roomTwo.child("player_one").set({
             name: this.currName,
             role: arrRole[random],
@@ -126,7 +132,8 @@ export default {
           }else{
             currRole = arrRole[0]
           }
-                    //let join and start game
+          //let join and start game
+          localStorage.setItem('player','player_two');
           roomThree.child("player_two").set({
             name: this.currName,
             role: currRole,
@@ -135,6 +142,7 @@ export default {
         } else {
           console.log("null");
           let random = Math.floor(Math.random() * 2)
+          localStorage.setItem('player','player_one');
           roomThree.child("player_one").set({
             name: this.currName,
             role: arrRole[random],
@@ -149,6 +157,8 @@ export default {
     //roomOne
     if (localStorage.getItem('username')){
        this.currName = localStorage.getItem('username');
+    }else{
+      this.$router.push("/")
     }
     if (localStorage.getItem('joinRoom') && localStorage.getItem('username')){
       this.joinRoom = true
@@ -222,6 +232,15 @@ export default {
 .card-text {
   font-size: 12px;
 }
+
+.rooms {
+    background-image: url("http://covidia.com/wp-content/uploads/2018/05/Wallpaper-FIFA-World-Cup.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height:100vh
+}
+
 </style>
 
 
