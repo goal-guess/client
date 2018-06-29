@@ -35,13 +35,13 @@ export default {
 
 <style>
 
-html,
+
 .login {
     background-image: url("http://covidia.com/wp-content/uploads/2018/05/Wallpaper-FIFA-World-Cup.jpg");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    height:100%
+    height:100vh
 }
 
 

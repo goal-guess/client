@@ -1,7 +1,7 @@
 <template>
+    <div id="login-square">
         <div class="row" id="row">
-            <div class="col-sm-4 col-md-offset-4"></div>
-            <div class="col-sm-4 col-md-offset-4">
+            <div class="col-sm-4 col-md-offset-4 login-form">
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <fieldset>
@@ -16,6 +16,7 @@
                 </div>
             </div>
         </div>
+    </div>    
 </template>
 
 <script>
@@ -66,11 +67,18 @@ export default {
 </script>
 
 <style scoped>
+#login-square {
+    width: 100%;
+    height: 100%;
+}
 
 #row {
-    
-    margin-top: 265px
-} 
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 
 </style>
