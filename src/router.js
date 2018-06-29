@@ -23,6 +23,11 @@ export default new Router({
       path: '/rooms/:id',
       name: 'gameOn',
       component: Main
+    },
+    {
+      path: '/dummy',
+      name: 'MainMain',
+      component: MainMain
     }
   ]
 })
