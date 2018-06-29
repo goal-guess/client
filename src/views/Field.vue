@@ -42,7 +42,7 @@ import Keeper from '@/components/main-components/Keeper.vue'
 import { roomOne, roomTwo, roomThree } from '../helpers/firebase'
 import game from '../helpers/game'
 import { functions } from 'firebase';
-
+import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'mainPage',
@@ -57,7 +57,7 @@ export default {
       youPlayer: '',
       you:{},
       timer: 10,
-      winner: null
+      
     }
   },
 
@@ -76,7 +76,11 @@ export default {
       } else {
         return this.you.directionState
       }
-    }
+    },
+
+    ...mapState([
+      'winner'
+    ])
   },
 
   methods: {
@@ -117,7 +121,8 @@ export default {
           return game.checkWhoWins(players)
         })
         .then(winner => {
-          this.winner = winner
+          this.setWinner(winner)
+          console.log(self.winner,"xxxxxxxxx")
           if (winner){
             swal({
               title: `The winner is ${winner.name}`,
@@ -128,7 +133,6 @@ export default {
             })
             .then(function(result){
               console.log(result,"====")
-              self.winner
               localStorage.clear()
               room.remove()
               self.$router.push("/")
@@ -157,10 +161,14 @@ export default {
 
           if(!this.winner){
             // location.reload()
+          
           }
         }
       }, 1000)
-    }
+    },
+    ...mapActions([
+      'setWinner'
+    ])
   },
   mounted: function(){
     this.gameStart()
@@ -179,6 +187,7 @@ export default {
           self.you = player.val()
         }
       })
+
       // console.log('winner oint:', self.winner)
       // if (self.winner){
       //   self.$router.push('/')
