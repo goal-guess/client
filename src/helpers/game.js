@@ -67,7 +67,7 @@ export default {
     let winner
     Object.keys(players).forEach(key => {
       if (players[key].score >= 3) {
-        winner = players[key].name
+        winner = players[key]
       }
     })
     return winner
