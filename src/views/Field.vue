@@ -1,8 +1,9 @@
 <template>
   <b-container>
     <div class="keeper-range">
-      <Keeper></Keeper>
+      <Keeper :direction="findKeeper"></Keeper>
     </div>
+
     <b-row class="fixed-bottom">
         <b-col>
           <div class="score-board">
@@ -12,7 +13,7 @@
           </div>
         </b-col>
         <b-col>
-          <Ball></Ball>
+          <Ball :direction="findKicker"></Ball>
         </b-col>
         <b-col style="font-size: 0.5rem; color: Dodgerblue;">
           <div>
@@ -46,96 +47,69 @@ export default {
   },
   data () {
     return {
-      player_one : {
+      mePlayer: '',
+      me:{},
+      youPlayer: '',
+      you:{}
+    }
+  },
 
+  computed: {
+    findKeeper () {
+      if (this.me.role === 'keeper') {
+        return this.me.directionState
+      } else {
+        return this.you.directionState
+      }
+    },
+
+    findKicker () {
+      if (this.me.role === 'kicker') {
+        return this.me.directionState
+      } else {
+        return this.you.directionState
       }
     }
   },
+
   methods: {
     directionAct (event) {
-      
-    },
-    addKeeper () {
-      let player_one = {
-        role: 'keeper',
-        score: 0,
-        name: 'John'
-      }
-      roomThree.child('player_one').set(player_one)
-        .then(() => console.log('player one saved'))
-        .catch(err => console.log(err))
-    },
+      let room = this.checkRoom()
 
-    addKicker () {
-      let player_two = {
-        role: 'kicker',
-        score: 0,
-        name: 'Doe'
-      }
-      roomThree.child('player_two').set(player_two)
-        .then(() => console.log('player two saved'))
-        .catch(err => console.log(err))
-    },
-
-    removePlayers () {
-      roomThree.remove()
-    },
-
-    checkPlayers () {
-      game.checkPlayersReady(this.data)
-        .then(result => console.log(result))
-        .catch(err => console.log(err.message))
-    },
-
-    checkDir () {
-      game.checkDirection(this.data)
-        .then(result => {
-          Object.keys(result).forEach(key => {
-            console.log(key, result[key].directionStat)
-            if (result[key].role === 'kicker') {
-              this.kickerDir = result[key].directionStat  
-            } else {
-              this.keeperDir = result[key].directionStat
-            }
-          })
+      this.me.directionState = event
+      room
+        .child(this.mePlayer)
+        .set(this.me)
+        .then( () => {
+          console.log('success')
         })
-    },
 
-    checkWhoScores () {
-      game.checkWhoScores(this.data)
-        .then(result => {
-          let player_one = result.player_one
-          let player_two = result.player_two
-          let updates = {}
-          updates[`/player_one`] = player_one
-          updates[`/player_two`] = player_two
-          roomThree.update(updates)
-            .then(() => {})
-        })
-    },
-
-    checkWhoWins () {
-
+      // this.me.directionState = event
+      console.log(this.me)
     },
     checkRoom () {
       switch(this.$route.params.id) {
-        case '1': return 'roomOne'
-        case '2': return 'roomTwo'
-        case '3': return 'roomThree'
+        case 'one': return roomOne
+        case 'two': return roomTwo
+        case 'three': return roomThree
       }
     }
   },
-  created () {
+  async created () {
+    this.mePlayer = localStorage.getItem('player')
     let room = this.checkRoom()
-    // console.log(room)
+
     let self = this
-    roomThree.on('value', function (snapshot) {
-      let key = snapshot.key
-      let val = snapshot.val()
-      console.log('on value')
-      self.data = val
-      console.log(snapshot.val());
-    }) 
+    await room.on('value', function (snapshot) {
+      snapshot.forEach( player => {
+        if(self.mePlayer == player.key) {
+          self.me = player.val()
+        } else {
+          self.youPlayer = player.key
+          self.you = player.val()
+        }
+      })
+    })
   }
 }
 </script>
