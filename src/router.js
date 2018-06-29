@@ -1,7 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/Home.vue'
-import About from './views/About.vue'
+import Main from './views/Field.vue'
+import Home from './views/Login.vue'
+import Rooms from './views/Rooms.vue'
+
 
 Vue.use(Router)
 
@@ -9,13 +11,18 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'home',
+      name: 'login',
       component: Home
     },
     {
-      path: '/about',
-      name: 'about',
-      component: About
+      path: '/rooms',
+      name: 'rooms',
+      component: Rooms
+    },
+    {
+      path: '/rooms/:id',
+      name: 'gameOn',
+      component: Main
     }
   ]
 })
