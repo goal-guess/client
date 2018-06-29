@@ -64,6 +64,11 @@ export default {
         .then(result => {
           Object.keys(result).forEach(key => {
             console.log(key, result[key].directionStat)
+            if (result[key].role === 'kicker') {
+              this.kickerDir = result[key].directionStat  
+            } else {
+              this.keeperDir = result[key].directionStat
+            }
           })
         })
     },
