@@ -25,6 +25,7 @@
               <b-col></b-col>
             </b-row>
             <b-row>
+              <i class="fas fa-caret-square-down" v-on:click="directionAct(null)"></i>
               <b-col md="3" offset-md="1"><i class="fas fa-caret-square-left fa-10x" v-on:click="directionAct('left')"></i></b-col>
               <b-col md="3" offset-md="3"><i class="fas fa-caret-square-right fa-10x" v-on:click="directionAct('right')"></i></b-col>
             </b-row>
