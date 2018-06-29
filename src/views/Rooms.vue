@@ -81,7 +81,7 @@ export default {
           }
           //let join and start game
           roomOne.child("player_two").set({
-            name: 'ujang',
+            name: this.currName,
             role: currRole,
             score:0
           })
@@ -89,7 +89,7 @@ export default {
           console.log("both player doesn't exist");
           let random = Math.floor(Math.random() * 2)
           roomOne.child("player_one").set({
-            name: "jajang",
+            name: this.currName,
             role: arrRole[random],
             score: 0
           });
@@ -104,7 +104,7 @@ export default {
             currRole = arrRole[0]
           }
           roomTwo.child("player_two").set({
-            name: 'ujang',
+            name: this.currName,
             role: currRole,
             score:0
           })
@@ -112,7 +112,7 @@ export default {
           console.log("null");
           let random = Math.floor(Math.random() * 2)
           roomTwo.child("player_one").set({
-            name: "jajang",
+            name: this.currName,
             role: arrRole[random],
             score: 0
           });
@@ -128,7 +128,7 @@ export default {
           }
                     //let join and start game
           roomThree.child("player_two").set({
-            name: 'ujang',
+            name: this.currName,
             role: currRole,
             score:0
           })
@@ -136,7 +136,7 @@ export default {
           console.log("null");
           let random = Math.floor(Math.random() * 2)
           roomThree.child("player_one").set({
-            name: "jajang",
+            name: this.currName,
             role: arrRole[random],
             score: 0
           });
@@ -145,10 +145,11 @@ export default {
     }
   },
   mounted() {
-    console.log("test mounted");
+    console.log("masuk mounted");
     //roomOne
-    if (localStorage.getItem('joinRoom')){
+    if (localStorage.getItem('joinRoom') && localStorage.getItem('username')){
       this.joinRoom = true
+      this.currName = localStorage.getItem('username');
     }
     roomOne.on("value", snapshot => {
       console.log('roomOne',snapshot.val());
