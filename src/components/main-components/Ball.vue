@@ -1,6 +1,6 @@
 <template>
   <div id="ball">
-    <b-img center src="/img/ball.d91b15e8.png" />
+    <img src="https://storage.googleapis.com/phase2-image/bola.png" class="keeper mx-auto d-block">
   </div>
 </template>
 
