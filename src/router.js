@@ -2,7 +2,6 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Main from './views/Field.vue'
 import Home from './views/Login.vue'
-import GameOn from './views/GameOn.vue'
 import Rooms from './views/Rooms.vue'
 
 
