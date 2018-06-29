@@ -8,8 +8,10 @@
         <b-col>
           <div class="score-board">
             <h2>Score :</h2> <br />
-            <h5>John(Keeper) : 0</h5> <br />
-            <h5>Doe(Kicker) : 0</h5>
+            <h3>{{ timer }}</h3> <br>
+            <h5>{{me.name}} as {{me.role}} : {{me.score}}</h5> <br />
+            <h5>{{you.name}} as {{you.name}} : {{you.score}}</h5>
+            <h5 v-if="winner"> Winner : {{winner.name}}</h5>
           </div>
         </b-col>
         <b-col>
@@ -38,6 +40,8 @@ import Ball from '@/components/main-components/Ball.vue'
 import Keeper from '@/components/main-components/Keeper.vue'
 import { roomOne, roomTwo, roomThree } from '../helpers/firebase'
 import game from '../helpers/game'
+import { functions } from 'firebase';
+
 
 export default {
   name: 'mainPage',
@@ -50,7 +54,9 @@ export default {
       mePlayer: '',
       me:{},
       youPlayer: '',
-      you:{}
+      you:{},
+      timer: 10,
+      winner: null
     }
   },
 
@@ -93,14 +99,77 @@ export default {
         case 'two': return roomTwo
         case 'three': return roomThree
       }
+    },
+    checkDir (players) {
+      let room = this.checkRoom()
+      const self= this
+      game.checkDirection(players)
+        .then(result => {
+          room.child(this.mePlayer).set(this.me)
+          room.child(this.youPlayer).set(this.you)
+          return game.checkWhoScores(players)
+          
+        })
+        .then(result => {
+          room.child(this.mePlayer).set(this.me)
+          room.child(this.youPlayer).set(this.you)
+          return game.checkWhoWins(players)
+        })
+        .then(winner => {
+          this.winner = winner
+          if (winner){
+            swal({
+              title: `The winner is ${winner.name}`,
+              text: `${this.me.name} pulang kau!`,
+              type: 'warning',
+              confirmButtonColor: '#3085d6',
+              confirmButtonText: 'Exit!'
+            })
+            .then(function(result){
+              console.log(result,"====")
+              self.winner
+              localStorage.clear()
+              room.remove()
+              self.$router.push("/")
+
+            })
+          } else {
+            self.timer = 10
+            self.gameStart()
+          }
+        })
+
+    },
+
+    gameStart () {
+      let self = this
+      let interval = setInterval(function() {
+        self.timer--
+        console.log('belom masuk', self.timer)
+        if (self.timer === 0) {
+          console.log('masuk interval 0')
+          let players = {}
+          players[self.mePlayer] = self.me
+          players[self.youPlayer] = self.you
+          self.checkDir(players)
+          clearInterval(interval)
+
+          if(!this.winner){
+            // location.reload()
+          }
+        }
+      }, 1000)
     }
   },
-  async created () {
+  mounted: function(){
+    this.gameStart()
+  },
+  created () {
     this.mePlayer = localStorage.getItem('player')
     let room = this.checkRoom()
 
     let self = this
-    await room.on('value', function (snapshot) {
+    room.on('value', function (snapshot) {
       snapshot.forEach( player => {
         if(self.mePlayer == player.key) {
           self.me = player.val()
@@ -109,6 +178,11 @@ export default {
           self.you = player.val()
         }
       })
+      // console.log('winner oint:', self.winner)
+      // if (self.winner){
+      //   self.$router.push('/')
+      //   localStorage.clear()
+      // }
     })
   }
 }

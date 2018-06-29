@@ -22,9 +22,9 @@ export default {
 
   async checkDirection (players) {
     Object.keys(players).forEach(key => {
-      let dir = players[key].directionStat
+      let dir = players[key].directionState
       if (!dir) {
-        players[key].directionStat = 'center'
+        players[key].directionState = 'center'
       }
     })
 
@@ -37,7 +37,7 @@ export default {
 
     Object.keys(players).forEach(key => {
       let role = players[key].role
-      let dir = players[key].directionStat
+      let dir = players[key].directionState
       if (role === 'keeper') {
         keeperDir = dir
       } else {
